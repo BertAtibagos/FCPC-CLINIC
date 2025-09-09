@@ -1,0 +1,10 @@
+.main_section{
+    background-color: grey;
+}
+.searchStudent{
+    display:flex;
+    justify-content:end;
+}
+.searchStudent > input,select{
+    margin-right:5px;
+}
