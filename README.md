@@ -1,1 +1,1 @@
-This is a modlue for FCPC School Portal
+This is a clinic triage module for FCPC School Portal

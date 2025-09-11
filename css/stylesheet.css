@@ -1,10 +1,72 @@
-.main_section{
-    background-color: grey;
+section{
+    padding:20px;
 }
 .searchStudent{
     display:flex;
     justify-content:end;
 }
-.searchStudent > input,select{
+.searchStudent > input, 
+.searchStudent > select.form-select{
     margin-right:5px;
+    width: auto;
+}
+.card{
+    border:1px solid rgb(223, 223, 223);
+    padding:20px;
+    margin:10px;
+    box-shadow: 2px 3px 10px #888888;
+}
+.person-record-header{
+    display: flex;
+}
+.person-img{
+    width: 10%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border:1px solid rgb(223, 223, 223);
+    box-shadow: 2px 1px 5px #888888;
+    border-radius: 15px;
+}
+.person-img img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.person-info-fullname, 
+.person-info-ageGender > p{
+    margin-bottom: 0;
+}
+.person-info{
+    padding-left: 20px;
+}
+.person-info-grdSec{
+    font-weight: bold;
+}
+.person-triage-info{
+    /* display: flex; */
+    margin-top: 20px;
+}
+.person-triage-info-history{
+    margin-right:10px;
+}
+.triage-info-vitals{
+    display: flex;
+}
+.triage-info-vitals1 > div, 
+.triage-info-vitals2 > div,
+.triage-info-vitals3 > div,
+.triage-info-vitals4 > div{
+    margin-bottom: 5px;
+}
+.triage-info-vitals1, 
+.triage-info-vitals2,
+.triage-info-vitals3,
+.triage-info-vitals4{
+    margin-right: 10px;
+}
+.vital-input{
+    width: 50px;
 }
