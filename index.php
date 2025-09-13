@@ -4,33 +4,34 @@
         <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     </head>
     <body>
-        <section>
-            <!-- Start of Search menu -->
-            <div class="searchStudent">
-                <input class="form-control mr-sm-2 searchStudent-name" type="search" placeholder="Search" aria-label="Search"  id="studSearch" name="studSearch">
-                <select class="form-select searchStudent-full-name">
-                    <option selected value="lname">Last Name</option>
-                    <option value="fname">First Name</option>
-                    <option value="mname">Middle Name</option>
-                </select>
-                <select class="form-select searchStudent-Catg">
-                    <option selected disabled value="3">All</option>
-                    <option value="2">Student</option>
-                    <option value="1">Employee</option>
-                </select>
-                <button class="btn btn-outline-primary my-2 my-sm-0" id="studSearchBtn">Search</button>
-            </div>
-            <!-- End of Search menu -->
+        <!-- Start of Search menu -->
+        <div class="searchStudent">
+            <input class="form-control mr-sm-2 searchStudent-name" type="search" placeholder="Search" aria-label="Search"  id="studSearch" name="studSearch">
+            <select class="form-select searchStudent-full-name">
+                <option selected value="lname">Last Name</option>
+                <option value="fname">First Name</option>
+                <option value="mname">Middle Name</option>
+            </select>
+            <select class="form-select searchStudent-Catg">
+                <option selected disabled value="3">All</option>
+                <option value="2">Student</option>
+                <option value="1">Employee</option>
+            </select>
+            <button class="btn my-2 my-sm-0 srch-btn" id="studSearchBtn">Search</button>
+        </div>
+        <!-- End of Search menu -->
 
-            <!-- Start of Search Result table-->
-            <!-- <div class="search-result card">
+        <!-- Start of Search Result table-->
+        <section>
+            <div class="search-result card">
+                <h3>TRIAGE RECORDS</h3>
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr class="search-result-tbl-tr">
                             <td>Full Name</td>
                             <td>Course/Program</td>
                             <td>Year Level & Section</td>
-                            <td>Action</td>
+                            <td class="thtable-action">Action</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,14 +39,19 @@
                             <td>Atibagos, Robert Galapin</td>
                             <td>Doctorate of Undergraduate of Masters of Bachelors of Science in High Information Technology </td>
                             <td>DUMBSHIT 1A</td>
-                            <td><button class="btn btn-outline-primary">VIEW</button></td>
+                            <td class="tdtable-action">
+                                <button class="btn btn-table-hstry">History</button>
+                                <button class="btn btn-table-new">New</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-            </div> -->
-            <!-- End of Search Result table-->
+            </div>
+        </section>
+        <!-- End of Search Result table-->
 
-            <!-- Start of person records -->
+        <!-- Start of person records -->
+        <section class="person-record-section">
             <div class="person-record card">
                 <div class="person-record-header">
                     <div class="person-img">
@@ -61,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="d-flex flex-row person-triage-info">
+                <div class="person-triage-info">
                     <div class="person-triage-info-history">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -82,69 +88,92 @@
 
                     <div class="person-triage-info-record">
                         <form id="triage-info-form">
-                            <p>Time and Date of Visit</p>
-                            <div class="d-flex flex-row">
-                                <label for="triageInfoForm_date" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="triageInfoForm_date">
+                            <div class="triage-info-form-wrap">
+                                
+                                <div class="triage-info-form-pt1">
+                                    <b>Time and Date of Visit</b>
+                                    <div class="d-flex flex-row">
+                                        <label for="triageInfoForm_date" class="form-label">Date</label>
+                                        <input type="date" class="form-control form-date" id="triageInfoForm_date" value="<?php echo date('Y-m-d'); ?>">
 
-                                <label for="triageInfoForm_time" class="form-label">Time</label>
-                                <input type="time" class="form-control" id="triageInfoForm_time">
+                                        <label for="triageInfoForm_time" class="form-label">Time</label>
+                                        <input type="time" class="form-control form-time" id="triageInfoForm_time">
+                                    </div>
+                                    <div>
+                                        <label for="triageInfoForm_reason" class="form-label">Reason for Clinic Visit</label>
+                                        <textarea class="form-control form-reason" id="triageInfoForm_reason" aria-describedby="visitReason"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="triage-info-form-pt2">
+                                    <b>Vitals</b>
+                                    <div class="triage-info-vitals">
+                                        <div class="triage-info-vitals1">
+                                            <div>
+                                                <label for="vit_bp">BP:</label>
+                                                <input type=text id="vit_bp" class="line-input vital-input">
+                                            </div>
+                                            <div>
+                                                <label for="vit_hr">HR:</label>
+                                                <input type=text id="vit_hr" class="line-input vital-input">
+                                            </div>
+                                        </div>
+                                        <div class="triage-info-vitals2">
+                                            <div>
+                                                <label for="vit_rr">RR:</label>
+                                                <input type=text id="vit_rr" class="line-input vital-input">
+                                            </div>
+                                            <div>
+                                                <label for="vit_02">02 SAT:</label>
+                                                <input type=text id="vit_02" class="line-input vital-input">
+                                            </div>
+                                        </div>
+                                        <div class="triage-info-vitals3">
+                                            <div>
+                                                <label for="vit_temp">TEMP:</label>
+                                                <input type=text id="vit_temp" class="line-input vital-input">
+                                            </div>
+                                            <div>
+                                                <label for="vit_ht">Height:</label>
+                                                <input type=text id="vit_ht" class="line-input vital-input">
+                                            </div>
+                                        </div>
+                                        <div class="triage-info-vitals4">
+                                            <div>
+                                                <label for="vit_wt">Weight:</label>
+                                                <input type=text id="vit_wt" class="line-input vital-input">
+                                            </div>
+                                            <div>
+                                                <label for="vit_bmi">BMI:</label>
+                                                <input type=text id="vit_bmi" class="line-input vital-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="triage-info-form-pt3">
+                                    <b>History</b>
+                                    <div>
+                                        <label for="triageInfoForm_prior" class="form-label">Prior s/sx</label>
+                                        <textarea class="form-control form-prior" id="triageInfoForm_prior" aria-describedby="visitReason"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="triageInfoForm_prior" class="form-label">Present s/sx</label>
+                                        <textarea class="form-control form-present" id="triageInfoForm_prior" aria-describedby="visitReason"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="triageInfoForm_prior" class="form-label">Intervention</label>
+                                        <textarea class="form-control form-interv" id="triageInfoForm_prior" aria-describedby="visitReason"></textarea>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label for="triageInfoForm_reason" class="form-label">Reason for Clinic Visit</label>
-                                <textarea class="form-control" id="triageInfoForm_reason" aria-describedby="visitReason"></textarea>
-                            </div>
-                            <p>Vitals</p>
-                            <div class="triage-info-vitals">
-                                <div class="triage-info-vitals1">
-                                    <div>
-                                        <label for="vit_bp">BP:</label>
-                                        <input type=text id="vit_bp" class="form-text vital-input">
-                                    </div>
-                                    <div>
-                                        <label for="vit_hr">HR:</label>
-                                        <input type=text id="vit_hr" class="form-text vital-input">
-                                    </div>
-                                </div>
-                                <div class="triage-info-vitals2">
-                                    <div>
-                                        <label for="vit_rr">RR:</label>
-                                        <input type=text id="vit_rr" class="form-text vital-input">
-                                    </div>
-                                    <div>
-                                        <label for="vit_02">02 SAT:</label>
-                                        <input type=text id="vit_02" class="form-text vital-input">
-                                    </div>
-                                    
-                                </div>
-                                <div class="triage-info-vitals3">
-                                    <div>
-                                        <label for="vit_temp">TEMP:</label>
-                                        <input type=text id="vit_temp" class="form-text vital-input">
-                                    </div>
-                                    <div>
-                                        <label for="vit_ht">Height:</label>
-                                        <input type=text id="vit_ht" class="form-text vital-input">
-                                    </div>
-                                </div>
-                                <div class="triage-info-vitals4">
-                                    <div>
-                                        <label for="vit_wt">Weight:</label>
-                                        <input type=text id="vit_wt" class="form-text vital-input">
-                                    </div>
-                                    <div>
-                                        <label for="vit_bmi">BMI:</label>
-                                        <input type=text id="vit_bmi" class="form-text vital-input">
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn submit-btn">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <!-- End of person records -->
         </section>
+        <!-- End of person records -->
     </body>
 </html>
 
