@@ -94,14 +94,16 @@
                                     <b>Time and Date of Visit</b>
                                     <div class="d-flex flex-row">
                                         <label for="triageInfoForm_date" class="form-label">Date</label>
-                                        <input type="date" class="form-control form-date" id="triageInfoForm_date" value="<?php echo date('Y-m-d'); ?>">
+                                        <input type="date" class="form-control form-date" id="triageInfoForm_date" value="<?php echo date('Y-m-d'); ?>" required>
 
-                                        <label for="triageInfoForm_time" class="form-label">Time</label>
-                                        <input type="time" class="form-control form-time" id="triageInfoForm_time">
+                                        <label for="triageInfoForm_time" class="form-label">Time<span
+                                            class="text-danger">*</span></label>
+                                        <input type="time" class="form-control form-time" id="triageInfoForm_time" required>
                                     </div>
                                     <div>
-                                        <label for="triageInfoForm_reason" class="form-label">Reason for Clinic Visit</label>
-                                        <textarea class="form-control form-reason" id="triageInfoForm_reason" aria-describedby="visitReason"></textarea>
+                                        <label for="triageInfoForm_reason" class="form-label">Reason for Clinic Visit<span
+                                            class="text-danger">*</span></label>
+                                        <textarea class="form-control form-reason" id="triageInfoForm_reason" aria-describedby="visitReason" required></textarea>
                                     </div>
                                 </div>
                                 
