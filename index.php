@@ -294,11 +294,6 @@
             </div>
         </section>
         <!-- End of person history records -->
-
-        <div>
-
-        </div>
     </body>
-    <script src="script/index-function.js?t=<?php echo time();?>"></script>
+    <script src="controller/index-function.js?t=<?php echo time();?>"></script>
 </html>
-
