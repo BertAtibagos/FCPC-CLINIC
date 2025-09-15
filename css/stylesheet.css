@@ -123,6 +123,9 @@ input{
     border: 1px solid #a5a5a5;
     /* box-shadow: 4px 2px 8px 0px #888888; */
 }
+.form-label-reason{
+    font-weight: bold;
+}
 .form-prior,
 .form-present,
 .form-interv{
@@ -156,6 +159,10 @@ input{
   padding: 4px 0;                
   width: 50px;                   
 }
+.triage-info-form-confirm{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
 .submit-btn{
     width:8em;
     background-color: #181a46;
@@ -165,4 +172,19 @@ input{
 .submit-btn:hover{
     background-color: #45b545;
     color: white;
+}
+.new-record-btn{
+    background-color: #45b545;
+    color: white;
+    margin-left: 20px;
+}
+.new-record-btn:hover{
+    background-color: #2f802f;
+    color: white; 
+}
+.triage-info-hist-date{
+    margin-right: 10px;
+}
+.triage-info-hist-dateTime{
+    margin-bottom: 10px;
 }

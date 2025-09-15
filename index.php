@@ -12,11 +12,11 @@
                 <option value="fname">First Name</option>
                 <option value="mname">Middle Name</option>
             </select>
-            <select class="form-select searchStudent-Catg">
+            <!-- <select class="form-select searchStudent-Catg">
                 <option selected disabled value="3">All</option>
                 <option value="2">Student</option>
                 <option value="1">Employee</option>
-            </select>
+            </select> -->
             <button class="btn my-2 my-sm-0 srch-btn" id="studSearchBtn">Search</button>
         </div>
         <!-- End of Search menu -->
@@ -50,7 +50,7 @@
         </section>
         <!-- End of Search Result table-->
 
-        <!-- Start of person records -->
+        <!-- Start of person new records -->
         <section class="person-record-section">
             <div class="person-record card">
                 <div class="person-record-header">
@@ -89,7 +89,7 @@
                     <div class="person-triage-info-record">
                         <form id="triage-info-form">
                             <div class="triage-info-form-wrap">
-                                
+
                                 <div class="triage-info-form-pt1">
                                     <b>Time and Date of Visit</b>
                                     <div class="d-flex flex-row">
@@ -101,7 +101,7 @@
                                         <input type="time" class="form-control form-time" id="triageInfoForm_time" required>
                                     </div>
                                     <div>
-                                        <label for="triageInfoForm_reason" class="form-label">Reason for Clinic Visit<span
+                                        <label for="triageInfoForm_reason" class="form-label form-label-reason">Reason for Clinic Visit<span
                                             class="text-danger">*</span></label>
                                         <textarea class="form-control form-reason" id="triageInfoForm_reason" aria-describedby="visitReason" required></textarea>
                                     </div>
@@ -126,7 +126,7 @@
                                                 <input type=text id="vit_rr" class="line-input vital-input">
                                             </div>
                                             <div>
-                                                <label for="vit_02">02 SAT:</label>
+                                                <label for="vit_02">O₂ SAT:</label>
                                                 <input type=text id="vit_02" class="line-input vital-input">
                                             </div>
                                         </div>
@@ -169,13 +169,136 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn submit-btn">Submit</button>
+                            <div class="triage-info-form-confirm">
+                                <input type="checkbox" id="confirm_new_record" value="1" name="confirm_new_record" required>
+                                <label for="confirm_new_record">I confirm the information above is correct</label>
+                            </div>
+                            <button type="submit" class="btn submit-btn" id="submit_new_rcrd_btn" disabled>Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- End of person records -->
+        <!-- End of person new records -->
+
+        <!-- Start of person history records -->
+        <section class="person-record-section">
+            <div class="person-record card">
+                <div class="person-record-header">
+                    <div class="person-img">
+                        <img src="attachment/user.jpg" alt="user image">
+                    </div>
+                    <div class="person-info">
+                        <h3 class="person-info-fullname">Robert Galapin Atibagos</h3>
+                        <p class="person-info-grdSec">Doctorate of Undergraduate of Masters of Bachelors of Science in High Information Technology (DUMBSHIT 1A)</p>
+                        <div class="person-info-ageGender">
+                            <p>Age: 25</p>
+                            <p>Gender: Male</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="person-triage-info">
+                    <div class="person-triage-info-history">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td>History</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>08-23-2000 12:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>12-25-2012 12:00 PM</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="person-triage-info-record">
+                        <div id="triage-info-hist-record">
+                            <div class="triage-info-form-wrap">
+                                
+                                <div class="triage-info-form-pt1">
+                                    <b>Time and Date of Visit</b>
+                                    <div class="d-flex flex-row triage-info-hist-dateTime">
+                                        <span class="triage-info-hist-date">Date: <span>09/15/2025</span></span>
+                                        <span class="triage-info-hist-time">Time: <span>8:00 AM</span></span>
+                                    </div>
+                                    <div>
+                                        <b>Reason for Clinic Visit</b>
+                                        <p>Fatigue or extreme tiredness that doesn’t get better with rest</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="triage-info-form-pt2">
+                                    <b>Vitals</b>
+                                    <div class="triage-info-vitals">
+                                        <div class="triage-info-vitals1">
+                                            <div>
+                                                <span>BP: <span>120/70</span></span>
+                                            </div>
+                                            <div>
+                                                <span>HR: <span>70</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="triage-info-vitals2">
+                                            <div>
+                                                <span>RR: <span>19 bpm</span></span>
+                                            </div>
+                                            <div>
+                                                <span>O₂ SAT: <span>95%</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="triage-info-vitals3">
+                                            <div>
+                                                <span>TEMP: <span>40 C</span></span>
+                                            </div>
+                                            <div>
+                                                <span>Height: <span>5'3</span></span>
+                                            </div>
+                                        </div>
+                                        <div class="triage-info-vitals4">
+                                            <div>
+                                                <span>Weight: <span>69 Kg</span></span>
+                                            </div>
+                                            <div>
+                                                <span>BMI: <span>25 </span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="triage-info-form-pt3">
+                                    <b>History</b>
+                                    <div>
+                                        <span>Prior s/sx</span>
+                                        <p>A white or red patch on the tongue or in patient's mouth</p>
+                                    </div>
+                                    <div>
+                                        <span>Present s/sx</span>
+                                        <p>Bleeding, pain, or numbness in the lip or mouth</p>
+                                    </div>
+                                    <div>
+                                        <span>Intervention</span>
+                                        <p>The patient is advised to pray 3x a week and hope for the best hehe</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn new-record-btn">New Record</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End of person history records -->
+
+        <div>
+
+        </div>
     </body>
+    <script src="script/index-function.js?t=<?php echo time();?>"></script>
 </html>
 
