@@ -7,7 +7,7 @@
         <!-- Start of Search menu -->
         <div class="searchStudent">
             <input class="form-control mr-sm-2 searchStudent-name" type="search" placeholder="Search" aria-label="Search"  id="studSearch" name="studSearch">
-            <select class="form-select searchStudent-full-name">
+            <select class="form-select searchStudent-full-name" id="studSearch_namePart">
                 <option selected value="lname">Last Name</option>
                 <option value="fname">First Name</option>
                 <option value="mname">Middle Name</option>
@@ -22,7 +22,7 @@
         <!-- End of Search menu -->
 
         <!-- Start of Search Result table-->
-        <section>
+        <section class="search-result-section hidden" id="searchResultSection">
             <div class="search-result card">
                 <h3>TRIAGE RECORDS</h3>
                 <table class="table table-bordered">
@@ -34,16 +34,7 @@
                             <td class="thtable-action">Action</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Atibagos, Robert Galapin</td>
-                            <td>Doctorate of Undergraduate of Masters of Bachelors of Science in High Information Technology </td>
-                            <td>DUMBSHIT 1A</td>
-                            <td class="tdtable-action">
-                                <button class="btn btn-table-hstry">History</button>
-                                <button class="btn btn-table-new">New</button>
-                            </td>
-                        </tr>
+                    <tbody id="searchStudResult">
                     </tbody>
                 </table>
             </div>
@@ -51,11 +42,11 @@
         <!-- End of Search Result table-->
 
         <!-- Start of person new records -->
-        <section class="person-record-section">
+        <section class="person-record-section-form">
             <div class="person-record card">
                 <div class="person-record-header">
                     <div class="person-img">
-                        <img src="attachment/user.jpg" alt="user image">
+                        <img src="attachment/user.jpg" alt="user image" id="person_profile">
                     </div>
                     <div class="person-info">
                         <h3 class="person-info-fullname">Robert Galapin Atibagos</h3>
@@ -186,7 +177,7 @@
             <div class="person-record card">
                 <div class="person-record-header">
                     <div class="person-img">
-                        <img src="attachment/user.jpg" alt="user image">
+                        <img src="attachment/user.jpg" alt="user image" id="person_profile">
                     </div>
                     <div class="person-info">
                         <h3 class="person-info-fullname">Robert Galapin Atibagos</h3>
@@ -295,5 +286,5 @@
         </section>
         <!-- End of person history records -->
     </body>
-    <script src="controller/index-function.js?t=<?php echo time();?>"></script>
+    <script src="view/index-function.js?t=<?php echo time();?>"></script>
 </html>

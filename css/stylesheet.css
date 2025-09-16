@@ -34,6 +34,15 @@ input{
     margin-right:5px;
     width: auto;
 }
+.search-result-section{
+    display: none;
+}
+.person-record-section-form{
+    display: none;
+}
+.person-record-section{
+    display: none;
+}
 .search-result-tbl-tr > td{
     background-color: #181a46;
     color:white;
