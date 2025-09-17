@@ -34,8 +34,11 @@ input{
     margin-right:5px;
     width: auto;
 }
-.search-result-section{
-    display: none;
+.loading{
+    display:none;
+}
+.loading.active{
+    display: block;
 }
 .person-record-section-form{
     display: none;

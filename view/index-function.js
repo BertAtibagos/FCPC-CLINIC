@@ -2,6 +2,7 @@ document.getElementById('confirm_new_record').addEventListener("change",function
     document.getElementById('submit_new_rcrd_btn').disabled = !this.checked;
 });
 
+const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
 document.getElementById('studSearchBtn').addEventListener("click",() => {
     const studName = document.getElementById('studSearch').value;
     const studNamePart = document.getElementById('studSearch_namePart').value;
@@ -12,14 +13,15 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
         studNamePart: studNamePart
     });
 
+    loadingModal.show();
+
     fetch(`controller/index-post.php`,{
         method: 'POST',
-        header: {"Content-Type": "application/x-www-form-urlencoded"},
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: params
     })
     .then(res => res.json())
     .then(result => {
-        
         console.log(result);
         const tbody = document.getElementById('searchStudResult');
         tbody.innerHTML = "";
@@ -36,10 +38,12 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
                             </td>`;
             tbody.appendChild(tr);
         });
-        document.getElementById('searchResultSection').classList.remove("search-result-section");
     })
-    .catch(error => console.error('Error fetching data:', error));
-})
+    .catch(error => console.error('Error fetching data:', error))
+    .finally(() => {
+        loadingModal.hide();
+    });
+});
 // fetch("https://cataas.com/cat?json=true")
 // .then(res => res.json())
 // .then(data =>{

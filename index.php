@@ -21,6 +21,20 @@
         </div>
         <!-- End of Search menu -->
 
+        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4">
+            <div class="modal-body">
+                <!-- Bootstrap spinner -->
+                <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-3">Loading, please wait...</p>
+            </div>
+            </div>
+        </div>
+        </div>
+
         <!-- Start of Search Result table-->
         <section class="search-result-section hidden" id="searchResultSection">
             <div class="search-result card">
@@ -35,6 +49,11 @@
                         </tr>
                     </thead>
                     <tbody id="searchStudResult">
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <span class="no-result-msg">Search result goes here</span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -286,5 +305,6 @@
         </section>
         <!-- End of person history records -->
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="view/index-function.js?t=<?php echo time();?>"></script>
 </html>
