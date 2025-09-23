@@ -40,9 +40,9 @@ input{
 .loading.active{
     display: block;
 }
-.person-record-section-form{
+/* .person-record-section-form{
     display: none;
-}
+} */
 .person-record-section{
     display: none;
 }
