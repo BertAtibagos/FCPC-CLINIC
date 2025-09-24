@@ -3,6 +3,8 @@ require("../configuration/connection.php");
 
 $type = $_POST['type'];
 
+$fetch = null;
+
 $common_leftJoin = "LEFT JOIN `schoolstudent` AS schl_stud
             ON assStud_id.stud_id = schl_stud.`SchlStudSms_ID`
 
@@ -87,6 +89,7 @@ if($type == 'STUDENT_INFO_CARD'){
     $stud_id = $_POST['stud_id'];
 
     $qry = "SELECT 
+            schl_admiss.`SchlStud_ID` AS studId,
             CONCAT(
                 SchlEnrollRegStudInfo_FIRST_NAME, ' ', 
                 SchlEnrollRegStudInfo_MIDDLE_NAME, ' ', 
@@ -119,8 +122,113 @@ if($type == 'STUDENT_INFO_CARD'){
     $dbPortal->close();
 }
 
-// if($type == 'NEW_CLNC_REC'){
+if($type == 'CHECK_PRIOR_SSX'){
 
-// }
+    $studId = $_POST['studId'];
+
+    $qry = "SELECT clinic_hist.`SchlStudCliHis_priorssx` AS prior,
+                    clinic_hist.`SchlStudCliHis_presentssx` AS present
+            FROM `schoolstudentclinichistory` AS clinic_hist
+            WHERE clinic_hist.`schlstud_ID` = ?
+            AND clinic_hist.`SchlStudCliHis_ID` = (
+                SELECT MAX(inner_hist.`SchlStudCliHis_ID`)
+                FROM `schoolstudentclinichistory` AS inner_hist
+                WHERE inner_hist.`schlstud_ID` = ?
+                LIMIT 1
+            )";
+
+    $stmt = $dbPortal->prepare($qry); 
+    $stmt->bind_param("ii",$studId,$studId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $fetch = $result->fetch_assoc();
+    $stmt->close();
+    $dbPortal->close();
+}
+
+if ($type == 'NEW_CLNC_REC') {
+    $visitDate   = $_POST['visit_date'];
+    $visitTime   = $_POST['visit_time'];
+    $visitReason = $_POST['visit_reason'];
+    $bp          = $_POST['bp'];
+    $hr          = $_POST['hr'];
+    $rr          = $_POST['rr'];
+    $vito2       = $_POST['vitO2'];
+    $temp        = $_POST['temp'];
+    $height      = $_POST['hght'];
+    $weight      = $_POST['wght'];
+    $bmi         = $_POST['bmi'];
+    $prior       = $_POST['prior'];
+    $prsnt       = $_POST['present'];
+    $interv      = $_POST['interv'];
+    $isActive    = 1;
+    $status      = 1;
+    $studId      = $_POST['stud_ID'];
+    $lvlId       = $_POST['lvl_ID'];
+    $yrId        = $_POST['yr_ID'];
+    $prdId       = $_POST['prd_ID'];
+
+    $qry = "
+        INSERT INTO `schoolstudentclinichistory` (
+            `SchlStudCliHis_date`,
+            `SchlStudCliHis_time`,
+            `SchlStudCliHis_reason`,
+            `SchlStudCliHis_BP`,
+            `SchlStudCliHis_HR`,
+            `SchlStudCliHis_RR`,
+            `SchlStudCliHis_O2SAT`,
+            `SchlStudCliHis_temp`,
+            `SchlStudCliHis_height`,
+            `SchlStudCliHis_weight`,
+            `SchlStudCliHis_BMI`,
+            `SchlStudCliHis_priorssx`,
+            `SchlStudCliHis_presentssx`,
+            `SchlStudCliHis_intervention`,
+            `SchlStudCliHis_ISACTIVE`,
+            `SchlStudCliHis_STATUS`,
+            `schlstud_ID`,
+            `schlacadlvl_ID`,
+            `schlacadyr_ID`,
+            `schlacadprd_ID`
+        ) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    $stmt = $dbPortal->prepare($qry);
+
+    $stmt->bind_param(
+        "ssssssssssssssiiiiii",
+        $visitDate,   
+        $visitTime,  
+        $visitReason, 
+        $bp,          
+        $hr,          
+        $rr,          
+        $vito2,       
+        $temp,        
+        $height,      
+        $weight,      
+        $bmi,         
+        $prior,      
+        $prsnt,       
+        $interv,      
+        $isActive,    
+        $status,      
+        $studId,      
+        $lvlId,       
+        $yrId,        
+        $prdId   
+    );
+
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "insert_id" => $stmt->insert_id]);
+    } else {
+        echo json_encode(["success" => false, "error" => $stmt->error]);
+    }
+
+    $stmt->close();
+    $dbPortal->close();
+    exit;
+}
+
 echo json_encode($fetch);
 ?>
