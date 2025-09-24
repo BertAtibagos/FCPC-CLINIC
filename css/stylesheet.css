@@ -40,9 +40,12 @@ input{
 .loading.active{
     display: block;
 }
-/* .person-record-section-form{
+.search-result-section-hide{
     display: none;
-} */
+}
+.person-record-section-form-hidden{
+    display: none;
+}
 .person-record-section{
     display: none;
 }
