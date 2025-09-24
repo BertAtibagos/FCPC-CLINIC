@@ -61,7 +61,7 @@
         <!-- End of Search Result table-->
 
         <!-- Start of person new records -->
-        <section class="person-record-section-form">
+        <section class="person-record-section-form person-record-section-form-hidden" id="personInfoCard">
             <div class="person-record card">
                 <div class="person-record-header">
                 </div>
@@ -91,6 +91,7 @@
                 </div>
             </div>
         </section>
+
         <!-- End of person new records -->
 
         <!-- Start of person history records -->
