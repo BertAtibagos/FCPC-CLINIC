@@ -92,6 +92,10 @@
             </div>
         </section>
 
+        <div id="autoDiv" class="alert-box">
+        Record saved successfully!
+        </div>
+
         <!-- End of person new records -->
 
         <!-- Start of person history records -->
