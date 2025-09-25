@@ -1,3 +1,19 @@
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const options = { month: '2-digit', day: '2-digit', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+function formatTime(timeStr) {
+    const [hour, minute] = timeStr.split(':');
+    const date = new Date();
+    date.setHours(hour, minute);
+
+    const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+    return date.toLocaleTimeString('en-US', options); 
+}
+
+
 const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
 document.getElementById('studSearchBtn').addEventListener("click",() => {
     const studName = document.getElementById('studSearch').value;
@@ -27,7 +43,11 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
         personTableCard.classList.remove("search-result-section-hide");
 
         const tbody = document.getElementById('searchStudResult');
-        tbody.innerHTML = "";
+        if(!result.length){
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center">No records found</td></tr>`;
+        }else{
+            tbody.innerHTML = "";
+        }
 
         result.forEach(data => {
             const tr = document.createElement("tr");
@@ -51,7 +71,7 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
 document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", function (e) {
     const button = e.target.closest(".btn-table-hstry"); 
-    if (!button) return; // not our button, ignore
+    if (!button) return; 
 
     const stud_id = button.dataset.studId;
     console.log("Clicked button stud_id:", stud_id);
@@ -64,6 +84,97 @@ document.addEventListener("DOMContentLoaded", () => {
 
     STUDENT_INFO_CARD(stud_id);
 
+    const params = new URLSearchParams({
+        type: 'SHOW_TRIAGE_HISTORY',
+        studId: stud_id
+    })
+
+    fetch(`controller/index-post.php`,{
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: params
+    })
+    .then(res => res.json())
+    .then(data => {
+        const main_section = document.querySelector('.person-triage-info-record');
+
+        main_section.innerHTML = "";
+        main_section.innerHTML = `
+                            <div class="person-triage-info-record">
+                                <div id="triage-info-hist-record">
+                                    <div class="triage-info-form-wrap">
+                                        
+                                        <div class="triage-info-form-pt1">
+                                            <b>Time and Date of Visit</b>
+                                            <div class="d-flex flex-row triage-info-hist-dateTime">
+                                                <span class="triage-info-hist-date">Date: <span>${formatDate(data.hist_date)}</span>
+                                                <span class="triage-info-hist-time">Time: <span>${formatTime(data.hist_time)}</span></span>
+                                            </div>
+                                            <div>
+                                                <b>Reason for Clinic Visit</b>
+                                                <p>${data.reason}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="triage-info-form-pt2">
+                                            <b>Vitals</b>
+                                            <div class="triage-info-vitals">
+                                                <div class="triage-info-vitals1">
+                                                    <div>
+                                                        <span>BP: <span>${data.bp}</span></span>
+                                                    </div>
+                                                    <div>
+                                                        <span>HR: <span>${data.hr}</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="triage-info-vitals2">
+                                                    <div>
+                                                        <span>RR: <span>${data.rr}</span></span>
+                                                    </div>
+                                                    <div>
+                                                        <span>O₂ SAT: <span>${data.o2sat}</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="triage-info-vitals3">
+                                                    <div>
+                                                        <span>TEMP: <span>${data.temp}</span></span>
+                                                    </div>
+                                                    <div>
+                                                        <span>Height: <span>${data.hght}</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="triage-info-vitals4">
+                                                    <div>
+                                                        <span>Weight: <span>${data.wght}</span></span>
+                                                    </div>
+                                                    <div>
+                                                        <span>BMI: <span>${data.bmi}</span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="triage-info-form-pt3">
+                                            <b>History</b>
+                                            <div>
+                                                <span>Prior s/sx</span>
+                                                <p>${data.prior}</p>
+                                            </div>
+                                            <div>
+                                                <span>Present s/sx</span>
+                                                <p>${data.present}</p>
+                                            </div>
+                                            <div>
+                                                <span>Intervention</span>
+                                                <p>${data.intervnt}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn new-record-btn" data-hist-id="${data.hist_id}" data-stud-id="${data.stud_id}">New Record</button>
+                                </div>
+                            </div>`;
+    })
+    .catch(error => console.error('Error fetching data:', error));
   });
 });
 
@@ -271,7 +382,76 @@ function FORM_SUBMIT(){
         .then(data => {
             console.log("Success: ", data);
 
+            form.reset();
+
+            refreshPriorSsx(stud_id);
+
+            const dateToday = new Date().toISOString().split('T')[0];
+            const timeNow = new Date().toLocaleTimeString('en-GB', { 
+                hour: "2-digit", 
+                minute: "2-digit" 
+            });
+
+            document.getElementById("triageInfoForm_date").value = dateToday;
+            document.getElementById("triageInfoForm_time").value = timeNow;
+
+            const confirmBox = document.getElementById("confirm_new_record");
+            const submitBtn = document.getElementById("submit_new_rcrd_btn");
+
+            if (confirmBox) {
+                confirmBox.checked = false;
+            }
+            if (submitBtn) {
+                submitBtn.disabled = true;
+            }
+            showDiv("Record saved!", 3000);
+
         })
         .catch(error => console.error('Error fetching data:', error));
     });
+}
+
+function refreshPriorSsx(stud_id){
+    const params = new URLSearchParams({
+        type: "CHECK_PRIOR_SSX",
+        studId: stud_id
+    });
+
+    fetch(`controller/index-post.php`,{
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: params
+    })
+    .then(res => res.json())
+    .then(data => {
+        const priorContainer = document.querySelector(".prior-record");
+        let priorSsx = "";
+
+        if(data == null){
+            priorSsx = `<input type="hidden" name="prior" value="First entry">`;
+        } else {
+            priorSsx = `<span>Prior s/sx</span>
+                        <p>${data.present}</p>
+                        <input type="hidden" name="prior" value="${data.present}">`;
+        }
+
+        priorContainer.innerHTML = priorSsx;
+    })
+    .catch(error => console.error("Error refreshing prior:", error));
+}
+
+
+function showDiv(message = "Record saved successfully!", duration = 3000) {
+  const div = document.getElementById("autoDiv");
+  div.textContent = message;
+
+  div.classList.add("show");
+
+  setTimeout(() => {
+    div.classList.remove("show");
+
+    setTimeout(() => {
+      div.style.display = "none";
+    }, 500);
+  }, duration);
 }
