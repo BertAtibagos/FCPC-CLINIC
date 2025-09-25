@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     personTableCard.classList.add("search-result-section-hide");
 
     STUDENT_INFO_CARD(stud_id);
+    TRIAGE_HISTORY_LIST(stud_id);
 
     const params = new URLSearchParams({
         type: 'SHOW_TRIAGE_HISTORY',
@@ -191,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         personTableCard.classList.add("search-result-section-hide");
 
         STUDENT_INFO_CARD(stud_id);
+        TRIAGE_HISTORY_LIST(stud_id);
 
         const params = new URLSearchParams({
             type: "CHECK_PRIOR_SSX",
@@ -354,6 +356,43 @@ function STUDENT_INFO_CARD(stud_id){
                     </div>`;
     })
     .catch(error => console.error('Error fetching data:', error));
+}
+
+function TRIAGE_HISTORY_LIST(stud_id){
+
+    const params = new URLSearchParams({
+        type: 'REC_HISTORY_LIST',
+        studId: stud_id
+    })
+
+    fetch(`controller/index-post.php`,{
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: params
+    })
+    .then(res => res.json())
+    .then(data => {
+        const tbody = document.querySelector(".history-tbl");
+
+        if(!data.length){
+            tbody.innerHTML = `<tr class="text-center"><td>No record yet</td></tr>`;
+        }else{
+            tbody.innerHTML ="";
+        }
+        
+        data.forEach(record => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `<td class="trig-hist-entry" 
+                            data-stud-id="${record.stud_id}"
+                            data-hist-id="${record.hist_id}">
+                                ${formatDate(record.hist_date)} ${formatTime(record.hist_time)}
+                            </td>`;
+
+            tbody.appendChild(row);
+        });
+    })
+    .catch(error => console.error('Error fetching data:', error))
 }
 
 function FORM_SUBMIT(){
