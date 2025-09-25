@@ -46,9 +46,9 @@ input{
 .person-record-section-form-hidden{
     display: none;
 }
-.person-record-section{
+/* .person-record-section{
     display: none;
-}
+} */
 .search-result-tbl-tr > td{
     background-color: #181a46;
     color:white;
@@ -202,4 +202,22 @@ input{
 }
 .triage-info-hist-dateTime{
     margin-bottom: 10px;
+}
+.alert-box {
+  display: none;               
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #28a745;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.alert-box.show {
+  display: block;
+  opacity: 1;
 }

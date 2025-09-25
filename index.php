@@ -74,13 +74,7 @@
                                     <td>History</td>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>08-23-2000 12:00 PM</td>
-                                </tr>
-                                <tr>
-                                    <td>12-25-2012 12:00 PM</td>
-                                </tr>
+                            <tbody class="history-tbl">
                             </tbody>
                         </table>
                     </div>
