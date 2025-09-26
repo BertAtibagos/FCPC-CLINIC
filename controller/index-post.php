@@ -23,6 +23,23 @@ $common_leftJoin = "LEFT JOIN `schoolstudent` AS schl_stud
             LEFT JOIN `schoolacademiccourses` AS schl_course
             ON schl_admiss.`SchlAcadCrses_ID` = schl_course.`SchlAcadCrses_ID`";
 
+$common_columns ="clinic_hist.`SchlStudCliHis_date` AS hist_date,
+                clinic_hist.`SchlStudCliHis_time` AS hist_time,
+                clinic_hist.`SchlStudCliHis_reason` AS reason,
+                clinic_hist.`SchlStudCliHis_BP` AS bp,
+                clinic_hist.`SchlStudCliHis_HR` AS hr,
+                clinic_hist.`SchlStudCliHis_RR` AS rr,
+                clinic_hist.`SchlStudCliHis_O2SAT` AS o2sat,
+                clinic_hist.`SchlStudCliHis_temp` AS temp,
+                clinic_hist.`SchlStudCliHis_height` AS hght,
+                clinic_hist.`SchlStudCliHis_weight` AS wght,
+                clinic_hist.`SchlStudCliHis_BMI` AS bmi,
+                clinic_hist.`SchlStudCliHis_priorssx` AS prior,
+                clinic_hist.`SchlStudCliHis_presentssx` AS present,
+                clinic_hist.`SchlStudCliHis_intervention` AS intervnt,
+                clinic_hist.`SchlStudCliHis_ID` AS hist_id,
+                clinic_hist.`schlstud_ID` AS stud_id";
+
 
 if($type == 'GET_SEARCH_STUDNAME'){
 
@@ -255,7 +272,13 @@ if($type == 'REC_HISTORY_LIST'){
 if($type == 'SHOW_TRIAGE_HISTORY'){
     $studId = $_POST['studId'];
 
-    $latestRec = "AND clinic_hist.`SchlStudCliHis_ID` = 
+
+    $qry = "SELECT 
+                $common_columns
+            FROM
+                `schoolstudentclinichistory` AS clinic_hist 
+            WHERE clinic_hist.`schlstud_ID` = ?
+            AND clinic_hist.`SchlStudCliHis_ID` = 
                 (SELECT 
                     MAX(inner_hist.`SchlStudCliHis_ID`) 
                 FROM
@@ -263,31 +286,27 @@ if($type == 'SHOW_TRIAGE_HISTORY'){
                 WHERE inner_hist.`schlstud_ID` = ? 
                 LIMIT 1)";
 
-    $qry = "SELECT 
-                clinic_hist.`SchlStudCliHis_date` AS hist_date,
-                clinic_hist.`SchlStudCliHis_time` AS hist_time,
-                clinic_hist.`SchlStudCliHis_reason` AS reason,
-                clinic_hist.`SchlStudCliHis_BP` AS bp,
-                clinic_hist.`SchlStudCliHis_HR` AS hr,
-                clinic_hist.`SchlStudCliHis_RR` AS rr,
-                clinic_hist.`SchlStudCliHis_O2SAT` AS o2sat,
-                clinic_hist.`SchlStudCliHis_temp` AS temp,
-                clinic_hist.`SchlStudCliHis_height` AS hght,
-                clinic_hist.`SchlStudCliHis_weight` AS wght,
-                clinic_hist.`SchlStudCliHis_BMI` AS bmi,
-                clinic_hist.`SchlStudCliHis_priorssx` AS prior,
-                clinic_hist.`SchlStudCliHis_presentssx` AS present,
-                clinic_hist.`SchlStudCliHis_intervention` AS intervnt,
-                clinic_hist.`SchlStudCliHis_ID` AS hist_id,
-                clinic_hist.`schlstud_ID` AS stud_id
-            FROM
-                `schoolstudentclinichistory` AS clinic_hist 
-            WHERE clinic_hist.`schlstud_ID` = ?
-            $latestRec
-           ";
-
     $stmt = $dbPortal->prepare($qry); 
     $stmt->bind_param("ii",$studId,$studId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $fetch = $result->fetch_assoc();
+    $stmt->close();
+    $dbPortal->close();
+}
+
+if($type == 'SHOW_HISTORY_FROM_LIST'){
+    $studId = $_POST['studId'];
+    $histId = $_POST['histId'];
+
+    $qry = "SELECT
+                $common_columns
+            FROM `schoolstudentclinichistory` AS clinic_hist 
+            WHERE clinic_hist.`schlstud_ID` = ?
+            AND clinic_hist.`SchlStudCliHis_ID` = ?";
+    
+    $stmt = $dbPortal->prepare($qry); 
+    $stmt->bind_param("ii",$studId,$histId);
     $stmt->execute();
     $result = $stmt->get_result();
     $fetch = $result->fetch_assoc();
