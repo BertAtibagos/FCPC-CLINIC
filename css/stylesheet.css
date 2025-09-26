@@ -87,6 +87,7 @@ input{
 }
 .person-record-header{
     display: flex;
+    justify-content: space-between;
 }
 .person-img{
     width: 11%;
@@ -118,6 +119,7 @@ input{
     margin-top: 20px;
     display: grid;
     grid-template-columns: 1fr 3fr;
+    column-gap: 2%;
 }
 .triage-info-form-pt1,
 .triage-info-form-pt2,
@@ -220,4 +222,19 @@ input{
 .alert-box.show {
   display: block;
   opacity: 1;
+}
+#triage-info-hist-record{
+    border: 4px solid #ffce9c;
+    border-radius: 10px;
+    padding: 01%;
+    background-color: #ffedcc;
+}
+.history-tbl-list{
+    background-color: #181a46;
+    color: white;
+    font-weight: bold;
+}
+.person-info-main{
+    width:100%;
+    display:flex;
 }
