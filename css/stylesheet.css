@@ -238,3 +238,13 @@ input{
     width:100%;
     display:flex;
 }
+.highlighted {
+  background-color: #ffeeba;
+  transition: background-color 0.3s ease;
+}
+.table > tbody > tr.highlighted > td {
+  background-color: #ffeeba !important;
+  color: #000 !important;
+  transition: background-color 0.15s ease;
+}
+.trig-hist-entry { cursor: pointer; }
