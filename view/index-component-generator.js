@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         <div class="triage-info-form-pt1">
                                             <b>Time and Date of Visit</b>
                                             <div class="d-flex flex-row triage-info-hist-dateTime">
-                                                <span class="triage-info-hist-date">Date: <span>${formatDate(data.hist_date)}</span>
+                                                <span class="triage-info-hist-date">Date: <span>${formatDate(data.hist_date)}</span></span>
                                                 <span class="triage-info-hist-time">Time: <span>${formatTime(data.hist_time)}</span></span>
                                             </div>
                                             <div>
@@ -411,7 +411,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             
             main_section.innerHTML = "";
             main_section.innerHTML = `
-                            <form id="triage-info-form">
+                            <form class="triage-form" id="triage-info-form">
                                 <div class="triage-info-form-wrap">
 
                                     <div class="triage-info-form-pt1">
@@ -552,7 +552,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             
             main_section.innerHTML = "";
             main_section.innerHTML = `
-                            <form id="triage-info-form">
+                            <form class="triage-form" id="triage-info-form">
                                 <div class="triage-info-form-wrap">
 
                                     <div class="triage-info-form-pt1">
