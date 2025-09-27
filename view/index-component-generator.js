@@ -124,8 +124,29 @@ function TRIAGE_HISTORY_LIST(stud_id){
                             data-stud-id="${data.stud_id}">
                                 ${formatDate(record.hist_date)} ${formatTime(record.hist_time)}
                             </td>`;
-
             tbody.appendChild(row);
+
+            document.addEventListener('click', function (e) {
+                const cell = e.target.closest('.trig-hist-entry');
+                if (!cell) return;
+
+                const row = cell.closest('tr');
+                if (!row) return;
+
+                document.querySelectorAll('tr.highlighted').forEach(r => {
+                    r.classList.remove('highlighted');
+                    r.querySelectorAll('td').forEach(td => {
+                    td.style.backgroundColor = '';
+                    td.style.color = '';
+                    });
+                });
+
+                row.classList.add('highlighted');
+                row.querySelectorAll('td').forEach(td => {
+                    td.style.backgroundColor = '#ffeeba';
+                    td.style.color = '#000';
+                });
+            });
         });
     })
     .catch(error => console.error('Error fetching data:', error))
@@ -493,6 +514,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if(!newRecBttn) return;
 
         const stud_id = newRecBttn.dataset.studId;
+
+        document.querySelectorAll('tr.highlighted').forEach(r => {
+            r.classList.remove('highlighted');
+            r.querySelectorAll('td').forEach(td => {
+            td.style.backgroundColor = '';
+            td.style.color = '';
+            });
+        });
 
         const params = new URLSearchParams({
             type: "CHECK_PRIOR_SSX",
