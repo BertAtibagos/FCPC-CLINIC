@@ -39,23 +39,29 @@
         <section class="search-result-section" id="searchResultSection">
             <div class="search-result card">
                 <h3>TRIAGE RECORDS</h3>
-                <table class="table table-bordered">
+
+                <table class="table table-bordered fixed-header">
                     <thead>
                         <tr class="search-result-tbl-tr">
-                            <td>Full Name</td>
-                            <td>Course/Program</td>
-                            <td>Year Level & Section</td>
-                            <td class="thtable-action">Action</td>
+                        <td>Full Name</td>
+                        <td>Course/Program</td>
+                        <td>Year Level & Section</td>
+                        <td class="thtable-action">Action</td>
                         </tr>
                     </thead>
-                    <tbody id="searchStudResult">
-                        <tr>
-                            <td colspan="5" class="text-center">
-                                <span class="no-result-msg">Search result goes here</span>
-                            </td>
-                        </tr>
-                    </tbody>
                 </table>
+                <!-- Scrollable tbody wrapper -->
+                <div class="table-body-scroll">
+                    <table class="table table-bordered fixed-header">
+                        <tbody id="searchStudResult">
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    <span class="no-result-msg">Search result goes here</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
         <!-- End of Search Result table-->
@@ -68,7 +74,7 @@
 
                 <div class="person-triage-info">
                     <div class="person-triage-info-history">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover fixed-header">
                             <thead>
                                 <tr>
                                     <td style="background-color: #181a46;
@@ -76,9 +82,14 @@
                                             font-weight: bold;">History</td>
                                 </tr>
                             </thead>
-                            <tbody class="history-tbl">
-                            </tbody>
                         </table>
+                        
+                        <div class="tableHist-body-scroll">
+                            <table class="table table-bordered table-hover fixed-header">
+                                <tbody class="history-tbl">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="person-triage-info-record">
