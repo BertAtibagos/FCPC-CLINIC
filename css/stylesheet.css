@@ -239,12 +239,41 @@ input{
     display:flex;
 }
 .highlighted {
-  background-color: #ffeeba;
-  transition: background-color 0.3s ease;
+    background-color: #ffeeba;
+    transition: background-color 0.3s ease;
 }
 .table > tbody > tr.highlighted > td {
-  background-color: #ffeeba !important;
-  color: #000 !important;
-  transition: background-color 0.15s ease;
+    background-color: #ffeeba !important;
+    color: #000 !important;
+    transition: background-color 0.15s ease;
 }
 .trig-hist-entry { cursor: pointer; }
+
+.table-body-scroll {
+    max-height: 700px; 
+    overflow-y: auto;
+}
+.tableHist-body-scroll{
+    max-height: 500px; 
+    overflow-y: auto;
+}
+.triage-form{
+    max-height: 600px; 
+    overflow-y: auto;
+}
+.fixed-header {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgb(75, 75, 75); 
+  border-radius: 10px;
+}
