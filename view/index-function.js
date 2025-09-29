@@ -13,7 +13,10 @@ function formatTime(timeStr) {
     return date.toLocaleTimeString('en-US', options); 
 }
 
-const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'),{
+    backdrop: 'static',
+    keyboard: false
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", function(e){
