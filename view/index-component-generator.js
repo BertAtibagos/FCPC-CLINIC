@@ -2,13 +2,22 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
     const studName = document.getElementById('studSearch').value;
     const studNamePart = document.getElementById('studSearch_namePart').value;
 
+    if(!studName){
+        alert("Please enter any name before searching.");
+    }
+    else if(studName.length < 2 ){
+        alert("Please enter a name atleast 2 characters.");
+    }
+    else{
+         loadingModal.show();
+    }
+
     const params = new URLSearchParams({
         type: 'GET_SEARCH_STUDNAME',
         studName: studName,
         studNamePart: studNamePart
     });
 
-    loadingModal.show();
 
     fetch(`controller/index-post.php`,{
         method: 'POST',
@@ -27,7 +36,7 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
 
         const tbody = document.getElementById('searchStudResult');
         if(!result.length){
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center">No records found</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center">No record/s found</td></tr>`;
         }else{
             tbody.innerHTML = "";
         }
@@ -48,6 +57,15 @@ document.getElementById('studSearchBtn').addEventListener("click",() => {
     .catch(error => console.error('Error fetching data:', error))
     .finally(() => {
         loadingModal.hide();
+    });
+});
+
+["studSearch", "studSearch_namePart"].forEach(id => {
+    document.getElementById(id).addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault(); // prevent form submission/refresh
+            document.getElementById("studSearchBtn").click(); // run same search
+        }
     });
 });
 
@@ -184,6 +202,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
         const main_section = document.querySelector('.person-triage-info-record');
 
+        if(data == null){
+            main_section.innerHTML = `<div style="text-align: center"><span>No record yet</span></div>`;
+            return;
+        }
+
         main_section.innerHTML = "";
         main_section.innerHTML = `
                                 <div id="triage-info-hist-record">
@@ -240,17 +263,16 @@ document.addEventListener("DOMContentLoaded", () => {
                                         </div>
 
                                         <div class="triage-info-form-pt3">
-                                            <b>History</b>
                                             <div>
-                                                <span>Prior s/sx</span>
+                                                <b>Prior s/sx</b>
                                                 <p>${data.prior}</p>
                                             </div>
                                             <div>
-                                                <span>Present s/sx</span>
+                                                <b>Present s/sx</b>
                                                 <p>${data.present}</p>
                                             </div>
                                             <div>
-                                                <span>Intervention</span>
+                                                <b>Intervention</b>
                                                 <p>${data.intervnt}</p>
                                             </div>
                                         </div>
@@ -294,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                             <div class="triage-info-form-pt1">
                                                 <b>Time and Date of Visit</b>
                                                 <div class="d-flex flex-row triage-info-hist-dateTime">
-                                                    <span class="triage-info-hist-date">Date: <span>${formatDate(data.hist_date)}</span>
+                                                    <span class="triage-info-hist-date">Date: <span>${formatDate(data.hist_date)}</span></span>
                                                     <span class="triage-info-hist-time">Time: <span>${formatTime(data.hist_time)}</span></span>
                                                 </div>
                                                 <div>
@@ -342,17 +364,16 @@ document.addEventListener("DOMContentLoaded", () => {
                                             </div>
 
                                             <div class="triage-info-form-pt3">
-                                                <b>History</b>
                                                 <div>
-                                                    <span>Prior s/sx</span>
+                                                    <b>Prior s/sx</b>
                                                     <p>${data.prior}</p>
                                                 </div>
                                                 <div>
-                                                    <span>Present s/sx</span>
+                                                    <b>Present s/sx</b>
                                                     <p>${data.present}</p>
                                                 </div>
                                                 <div>
-                                                    <span>Intervention</span>
+                                                    <b>Intervention</b>
                                                     <p>${data.intervnt}</p>
                                                 </div>
                                             </div>
@@ -404,7 +425,7 @@ document.addEventListener("DOMContentLoaded", () =>{
                 priorSsx = `<input type="hidden" name="prior" value="First entry">`;
             }else{
                 console.log('initial entry: ', data.prior, " ", data.present);
-                priorSsx = `<span>Prior s/sx</span>
+                priorSsx = `<b>Prior s/sx</b>
                         <p>${data.present}</p>
                         <input type="hidden" name="prior" value="${data.present}">`;
             }
@@ -478,16 +499,15 @@ document.addEventListener("DOMContentLoaded", () =>{
                                     </div>
 
                                     <div class="triage-info-form-pt3">
-                                        <b>History</b>
                                         <div class="prior-record">
                                             ${priorSsx}
                                         </div>
                                         <div>
-                                            <label for="triageInfoForm_present" class="form-label">Present s/sx</label>
+                                            <b><label for="triageInfoForm_present" class="form-label">Present s/sx</label></b>
                                             <textarea class="form-control form-present" id="triageInfoForm_present" aria-describedby="visitReason" name="present"></textarea>
                                         </div>
                                         <div>
-                                            <label for="triageInfoForm_interv" class="form-label">Intervention</label>
+                                            <b><label for="triageInfoForm_interv" class="form-label">Intervention</label></b>
                                             <textarea class="form-control form-interv" id="triageInfoForm_interv" aria-describedby="visitReason" name="interv"></textarea>
                                         </div>
                                     </div>
@@ -545,7 +565,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 priorSsx = `<input type="hidden" name="prior" value="First entry">`;
             }else{
                 console.log('initial entry: ', data.prior, " ", data.present);
-                priorSsx = `<span>Prior s/sx</span>
+                priorSsx = `<b>Prior s/sx</b>
                         <p>${data.present}</p>
                         <input type="hidden" name="prior" value="${data.present}">`;
             }
@@ -619,16 +639,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
                                     </div>
 
                                     <div class="triage-info-form-pt3">
-                                        <b>History</b>
                                         <div class="prior-record">
                                             ${priorSsx}
                                         </div>
                                         <div>
-                                            <label for="triageInfoForm_present" class="form-label">Present s/sx</label>
+                                            <b><label for="triageInfoForm_present" class="form-label">Present s/sx</label></b>
                                             <textarea class="form-control form-present" id="triageInfoForm_present" aria-describedby="visitReason" name="present"></textarea>
                                         </div>
                                         <div>
-                                            <label for="triageInfoForm_interv" class="form-label">Intervention</label>
+                                            <b><label for="triageInfoForm_interv" class="form-label">Intervention</label></b>
                                             <textarea class="form-control form-interv" id="triageInfoForm_interv" aria-describedby="visitReason" name="interv"></textarea>
                                         </div>
                                     </div>
