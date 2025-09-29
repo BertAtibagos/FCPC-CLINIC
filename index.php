@@ -40,6 +40,7 @@
             <div class="search-result card">
                 <h3>TRIAGE RECORDS</h3>
 
+                <div class="table-body-scroll">
                 <table class="table table-bordered fixed-header">
                     <thead>
                         <tr class="search-result-tbl-tr">
@@ -49,10 +50,7 @@
                         <td class="thtable-action">Action</td>
                         </tr>
                     </thead>
-                </table>
                 <!-- Scrollable tbody wrapper -->
-                <div class="table-body-scroll">
-                    <table class="table table-bordered fixed-header">
                         <tbody id="searchStudResult">
                             <tr>
                                 <td colspan="5" class="text-center">
@@ -79,7 +77,8 @@
                                 <tr>
                                     <td style="background-color: #181a46;
                                             color: white;
-                                            font-weight: bold;">History</td>
+                                            font-weight: bold;
+                                            margin-bottom:0;">History</td>
                                 </tr>
                             </thead>
                         </table>
