@@ -1,5 +1,6 @@
 <?php
 require("../configuration/connection.php");
+session_start();
 
 $type = $_POST['type'];
 
@@ -184,6 +185,7 @@ if ($type == 'NEW_CLNC_REC') {
     $lvlId       = $_POST['lvl_ID'];
     $yrId        = $_POST['yr_ID'];
     $prdId       = $_POST['prd_ID'];
+    $userId      = $_SESSION['USERID'];
 
     $qry = "
         INSERT INTO `schoolstudentclinichistory` (
@@ -206,14 +208,15 @@ if ($type == 'NEW_CLNC_REC') {
             `schlstud_ID`,
             `schlacadlvl_ID`,
             `schlacadyr_ID`,
-            `schlacadprd_ID`
+            `schlacadprd_ID`,
+            SystemUser_ID
         ) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     $stmt = $dbPortal->prepare($qry);
 
     $stmt->bind_param(
-        "ssssssssssssssiiiiii",
+        "ssssssssssssssiiiiiii",
         $visitDate,   
         $visitTime,  
         $visitReason, 
@@ -233,7 +236,8 @@ if ($type == 'NEW_CLNC_REC') {
         $studId,      
         $lvlId,       
         $yrId,        
-        $prdId   
+        $prdId,
+        $userId   
     );
 
     if ($stmt->execute()) {
@@ -258,6 +262,7 @@ if($type == 'REC_HISTORY_LIST'){
             FROM
                 `schoolstudentclinichistory` AS clinic_hist 
             WHERE clinic_hist.`schlstud_ID` = ?
+            ORDER BY clinic_hist.`SchlStudCliHis_date` DESC
             ";
 
     $stmt = $dbPortal->prepare($qry); 
